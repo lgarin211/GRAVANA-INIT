@@ -76,6 +76,21 @@ services:
     depends_on:
       - zabbix-server
 
+  zabbix-agent:
+    image: zabbix/zabbix-agent2:latest
+    container_name: zabbix-agent
+    ports:
+      - "10050:10050"
+    restart: always
+    environment:
+      - ZBX_SERVER_HOST=zabbix-server
+      - ZBX_SERVER_ACTIVE=zabbix-server
+      - ZBX_HOSTNAME=zabbix-agent
+    networks:
+      - zabbix-net
+    depends_on:
+      - zabbix-server
+
 networks:
   zabbix-net:
     driver: bridge
