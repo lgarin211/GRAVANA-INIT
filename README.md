@@ -1,9 +1,10 @@
 # GRAVANA-INIT
 
 ## Overview
-- This workspace is a containerized stack for MySQL, Zabbix (server + web), and Grafana.
+- This workspace is a containerized stack for MySQL, Zabbix (server + web + agent), and Grafana.
 - The development environment runs in a Dev Container using Docker-in-Docker.
-- **All services (Grafana, MySQL, Zabbix) start automatically when you open this repository in GitHub Codespaces or a Dev Container.**
+- **All services (Grafana, MySQL, Zabbix Server, Zabbix Agent) start automatically when you open this repository in GitHub Codespaces or a Dev Container.**
+- **Zabbix Agent (client) is included by default for monitoring and is automatically connected to the Zabbix Server.**
 
 ## Prerequisites
 - Docker available inside the Dev Container (already enabled via devcontainer).
@@ -36,6 +37,9 @@ docker compose -f .devcontainer/docker-compose.yml ps
 	- Plugins: installs `alexanderzobnin-zabbix-app` automatically.
 - Zabbix Web: http://localhost:8080
 - Zabbix Server: port `10051` exposed.
+- Zabbix Agent: port `10050` exposed.
+	- Hostname: `zabbix-agent`
+	- Automatically connects to Zabbix Server for monitoring.
 
 ## Database credentials (configured via compose)
 - Database: `zabbix`
