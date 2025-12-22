@@ -1,6 +1,35 @@
 {
+    "name": "Grafana-Zabbix-MySQL Stack",
     "image": "mcr.microsoft.com/devcontainers/universal:2",
     "features": {
         "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+    },
+    "forwardPorts": [3000, 8080, 10051, 10050],
+    "portsAttributes": {
+        "3000": {
+            "label": "Grafana",
+            "onAutoForward": "notify"
+        },
+        "8080": {
+            "label": "Zabbix Web",
+            "onAutoForward": "notify"
+        },
+        "10051": {
+            "label": "Zabbix Server",
+            "onAutoForward": "silent"
+        },
+        "10050": {
+            "label": "Zabbix Agent",
+            "onAutoForward": "silent"
+        }
+    },
+    "postCreateCommand": "docker compose -f .devcontainer/docker-compose.yml pull",
+    "postStartCommand": "docker compose -f .devcontainer/docker-compose.yml up -d",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-azuretools.vscode-docker"
+            ]
+        }
     }
 }
